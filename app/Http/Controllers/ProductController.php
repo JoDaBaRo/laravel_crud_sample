@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
-
+use \Illuminate\Http\Response;
 class ProductController extends Controller
 {
     /**
@@ -14,10 +14,12 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::latest()->paginate(5);
 
-        return view('products.index', compact('products'))
-            ->with('i', (request()->input('page', 1) - 1) * 5);    }
+        $products = Product::latest()->paginate(5);
+//        route('products.show')
+
+        return response()->view('products.index', compact('products'));    
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -26,7 +28,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('products.create');
+        return response()->view('products.create');
     }
 
     /**
@@ -57,7 +59,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        return view('products.show', compact('product'));
+        return response()->view('products.show', compact('product'));
     }
 
     /**
@@ -68,7 +70,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('products.edit', compact('product'));
+        return response()->view('products.edit', compact('product'));
     }
 
     /**
